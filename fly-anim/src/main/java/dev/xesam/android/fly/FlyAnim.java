@@ -1,5 +1,9 @@
 package dev.xesam.android.fly;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +13,10 @@ import android.view.ViewParent;
  * Created by xe on 16-12-16.
  */
 
-public class FlyAnim {
-    private ViewGroup vContainer;
-    private View vFrom;
-    private View vTo;
+public abstract class FlyAnim {
+    protected ViewGroup vContainer;
+    protected View vFrom;
+    protected View vTo;
 
     public Rect getRect(ViewGroup container, View target) {
         if (container == target) {
@@ -42,15 +46,62 @@ public class FlyAnim {
         throw new RuntimeException("container does not contains target");
     }
 
-    public void from(View from) {
+    public void container(ViewGroup container) {
+        vContainer = container;
+    }
 
+    public void from(View from) {
+        vFrom = from;
     }
 
     public void to(View to) {
-
+        vTo = to;
     }
 
-    public void start() {
+    protected abstract View createFly(Rect from);
 
+    public void start() {
+        Rect from = getRect(vContainer, vFrom);
+        Rect to = getRect(vContainer, vTo);
+        final View view = createFly(from);
+        vContainer.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        ValueAnimator animX = ObjectAnimator.ofFloat(
+                view,
+                "x",
+                view.getX(),
+                to.left
+        );
+        ValueAnimator animY = ObjectAnimator.ofFloat(
+                view,
+                "y",
+                view.getY(),
+                to.top
+        );
+        AnimatorSet animationSet = new AnimatorSet();
+        animationSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                vContainer.removeView(view);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                vContainer.removeView(view);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animationSet.setDuration(3000);
+        animationSet.play(animX).with(animY);
+        animationSet.start();
     }
 }
