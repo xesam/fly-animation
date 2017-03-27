@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import dev.xesam.android.fly.FlyPlayer;
-import dev.xesam.android.fly.SimpleAnimUnit;
+import dev.xesam.android.fly.SimpleFlyUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                         .container(vMain)
                         .from(vFrom)
                         .to(vTo)
-                        .play(new SimpleAnimUnit(target, 30000));
+                        .play(new SimpleFlyUnit(target, 10_000));
             }
         }, 500);
 

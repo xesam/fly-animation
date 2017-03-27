@@ -60,12 +60,12 @@ public class FlyPlayer {
         return this;
     }
 
-    public void play(AnimUnit animUnit) {
+    public void play(FlyUnit flyUnit) {
         Rect from = getRect(vContainer, vFrom);
         Rect to = getRect(vContainer, vTo);
-        final View view = animUnit.getView(vContainer, from, to);
+        final View view = flyUnit.createView(vContainer, from, to);
         Paddings paddings = new Paddings(vContainer);
-        Animator anim = animUnit.getAnim(paddings, view, from, to);
+        Animator anim = flyUnit.createAnim(view, paddings, from, to);
         anim.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {

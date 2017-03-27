@@ -12,23 +12,23 @@ import android.view.ViewGroup;
  * Created by xesamguo@gmail.com on 17-3-27.
  */
 
-public class SimpleAnimUnit extends AnimUnit {
+public class SimpleFlyUnit extends FlyUnit {
 
     private View vTarget;
     private long mDuration;
 
-    public SimpleAnimUnit(View target, long duration) {
+    public SimpleFlyUnit(View target, long duration) {
         this.vTarget = target;
         this.mDuration = duration;
     }
 
     @Override
-    public View getView(ViewGroup container, Rect from, Rect to) {
+    public View createView(ViewGroup container, Rect from, Rect to) {
         return vTarget;
     }
 
     @Override
-    public Animator getAnim(Paddings containerPaddings, View target, Rect from, Rect to) {
+    public Animator createAnim(View target, Paddings containerPaddings, Rect from, Rect to) {
         ValueAnimator animX = ObjectAnimator.ofFloat(
                 target,
                 "x",
@@ -41,11 +41,10 @@ public class SimpleAnimUnit extends AnimUnit {
                 target.getY() + containerPaddings.top,
                 to.top
         );
-        AnimatorSet animationSet = new AnimatorSet();
+        AnimatorSet animationSet = new AnimatorSet().setDuration(mDuration);
         animationSet
                 .play(animX)
                 .with(animY);
-        animationSet.setDuration(mDuration);
         return animationSet;
     }
 }
