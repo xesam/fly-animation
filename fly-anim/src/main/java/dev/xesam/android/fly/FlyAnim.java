@@ -8,6 +8,10 @@ import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.animation.Animation;
+import android.view.animation.Interpolator;
+import android.view.animation.PathInterpolator;
+import android.view.animation.TranslateAnimation;
 
 /**
  * Created by xe on 16-12-16.
@@ -46,19 +50,33 @@ public abstract class FlyAnim {
         throw new RuntimeException("container does not contains target");
     }
 
-    public void container(ViewGroup container) {
+    public FlyAnim container(ViewGroup container) {
         vContainer = container;
+        return this;
     }
 
-    public void from(View from) {
+    public FlyAnim from(View from) {
         vFrom = from;
+        return this;
     }
 
-    public void to(View to) {
+    public FlyAnim to(View to) {
         vTo = to;
+        return this;
     }
 
     protected abstract View createFly(Rect from);
+
+    public void start0() {
+        Rect from = getRect(vContainer, vFrom);
+        Rect to = getRect(vContainer, vTo);
+        final View view = createFly(from);
+        vContainer.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        Animation animation = new TranslateAnimation(from.left, to.left, from.top, to.top);
+        animation.setDuration(2_000);
+        animation.setFillAfter(true);
+        view.startAnimation(animation);
+    }
 
     public void start() {
         Rect from = getRect(vContainer, vFrom);

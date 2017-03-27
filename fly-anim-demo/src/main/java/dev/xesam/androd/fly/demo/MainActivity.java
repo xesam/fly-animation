@@ -26,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                FlyAnim anim = new DemoFly();
-                anim.container(vMain);
-                anim.from(vFrom);
-                anim.to(vTo);
+                FlyAnim anim = new DemoFly()
+                        .container(vMain)
+                        .from(vFrom)
+                        .to(vTo);
+//                anim.start0();
                 anim.start();
             }
         }, 1000);
