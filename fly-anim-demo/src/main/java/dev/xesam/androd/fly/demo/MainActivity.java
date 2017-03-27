@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                         .to(vTo)
                         .start();
             }
-        }, 1000);
+        }, 500);
 
     }
 }

@@ -25,8 +25,8 @@ public class DemoFly extends FlyAnim {
                 Toast.makeText(v.getContext(), "hello", Toast.LENGTH_SHORT).show();
             }
         });
-        a.setX(from.left);
-        a.setY(from.top);
+//        a.setX(from.left);
+//        a.setY(from.top);
         return a;
     }
 }

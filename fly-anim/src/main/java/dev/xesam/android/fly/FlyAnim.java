@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.animation.Animation;
-import android.view.animation.Interpolator;
-import android.view.animation.PathInterpolator;
 import android.view.animation.TranslateAnimation;
 
 /**
@@ -82,7 +80,6 @@ public abstract class FlyAnim {
         Rect from = getRect(vContainer, vFrom);
         Rect to = getRect(vContainer, vTo);
         final View view = createFly(from);
-        vContainer.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         ValueAnimator animX = ObjectAnimator.ofFloat(
                 view,
@@ -96,6 +93,8 @@ public abstract class FlyAnim {
                 view.getY(),
                 to.top
         );
+
+        vContainer.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         AnimatorSet animationSet = new AnimatorSet();
         animationSet.addListener(new Animator.AnimatorListener() {
             @Override
@@ -118,8 +117,10 @@ public abstract class FlyAnim {
 
             }
         });
-        animationSet.setDuration(3000);
-        animationSet.play(animX).with(animY);
-        animationSet.start();
+        animationSet
+                .play(animX)
+                .with(animY);
+        animationSet.setDuration(3000)
+                .start();
     }
 }
