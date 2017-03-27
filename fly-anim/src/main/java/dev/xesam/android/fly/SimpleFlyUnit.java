@@ -29,16 +29,18 @@ public class SimpleFlyUnit extends FlyUnit {
 
     @Override
     public Animator createAnim(View target, Paddings containerPaddings, Rect from, Rect to) {
+        vTarget.setX(from.left);
+        vTarget.setY(from.top);
         ValueAnimator animX = ObjectAnimator.ofFloat(
                 target,
                 "x",
-                target.getX() + containerPaddings.left,
+                target.getX(),
                 to.left
         );
         ValueAnimator animY = ObjectAnimator.ofFloat(
                 target,
                 "y",
-                target.getY() + containerPaddings.top,
+                target.getY(),
                 to.top
         );
         AnimatorSet animationSet = new AnimatorSet().setDuration(mDuration);
