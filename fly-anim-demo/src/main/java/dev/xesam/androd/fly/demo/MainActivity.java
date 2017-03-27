@@ -1,12 +1,10 @@
 package dev.xesam.androd.fly.demo;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
-
-import dev.xesam.android.fly.FlyAnim;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,12 +24,11 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                FlyAnim anim = new DemoFly()
+                new DemoFly()
                         .container(vMain)
                         .from(vFrom)
-                        .to(vTo);
-//                anim.start0();
-                anim.start();
+                        .to(vTo)
+                        .start();
             }
         }, 1000);
 

@@ -18,7 +18,7 @@ public class DemoFly extends FlyAnim {
     protected View createFly(Rect from) {
         ImageView a = new ImageView(vContainer.getContext());
         a.setBackgroundColor(Color.RED);
-        a.setImageResource(R.mipmap.ic_launcher);
+        a.setImageResource(R.drawable.ic_launcher);
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
