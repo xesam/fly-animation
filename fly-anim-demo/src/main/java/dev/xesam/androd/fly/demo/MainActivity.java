@@ -46,10 +46,7 @@ public class MainActivity extends AppCompatActivity {
                         .from(vTo)
                         .to(vFrom);
                 for (int i = 0; i < 5; i++) {
-                    ImageView target = new ImageView(MainActivity.this);
-                    target.setBackgroundColor(Color.RED);
-                    target.setImageResource(R.drawable.ic_launcher);
-                    flyPlayer.play(new SimpleFlyUnit(target, 1_000 * i));
+                    flyPlayer.play(new CustomFly(1_000 * i));
                 }
             }
         });

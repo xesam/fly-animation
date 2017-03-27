@@ -1,4 +1,4 @@
-package dev.xesam.android.fly;
+package dev.xesam.androd.fly.demo;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -7,24 +7,29 @@ import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
+import android.widget.TextView;
+
+import dev.xesam.android.fly.FlyUnit;
+import dev.xesam.android.fly.Paddings;
 
 /**
  * Created by xesamguo@gmail.com on 17-3-27.
  */
 
-public class SimpleFlyUnit extends FlyUnit {
+public class CustomFly extends FlyUnit {
 
-    private View vTarget;
     private long mDuration;
 
-    public SimpleFlyUnit(View target, long duration) {
-        this.vTarget = target;
+    public CustomFly(long duration) {
         this.mDuration = duration;
     }
 
     @Override
     public View createView(ViewGroup container, Rect from, Rect to) {
-        return vTarget;
+        TextView target = new TextView(container.getContext());
+        target.setText("duration = " + mDuration);
+        return target;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class SimpleFlyUnit extends FlyUnit {
                 to.top
         );
         AnimatorSet animationSet = new AnimatorSet().setDuration(mDuration);
+        animationSet.setInterpolator(new BounceInterpolator());
         animationSet
                 .play(animX)
                 .with(animY);
