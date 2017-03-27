@@ -12,6 +12,7 @@ import dev.xesam.android.fly.FlyAnim;
  * Created by xe on 16-12-16.
  */
 
+@Deprecated
 public class DemoFly extends FlyAnim {
 
     @Override

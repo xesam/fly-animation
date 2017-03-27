@@ -8,13 +8,12 @@ import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 
 /**
  * Created by xe on 16-12-16.
  */
 
+@Deprecated
 public abstract class FlyAnim {
     protected ViewGroup vContainer;
     protected View vFrom;
@@ -65,17 +64,6 @@ public abstract class FlyAnim {
 
     protected abstract View createFly(Rect from);
 
-    public void start0() {
-        Rect from = getRect(vContainer, vFrom);
-        Rect to = getRect(vContainer, vTo);
-        final View view = createFly(from);
-        vContainer.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        Animation animation = new TranslateAnimation(from.left, to.left, from.top, to.top);
-        animation.setDuration(2_000);
-        animation.setFillAfter(true);
-        view.startAnimation(animation);
-    }
-
     public void start() {
         Rect from = getRect(vContainer, vFrom);
         Rect to = getRect(vContainer, vTo);
@@ -93,7 +81,6 @@ public abstract class FlyAnim {
                 view.getY(),
                 to.top
         );
-
         vContainer.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         AnimatorSet animationSet = new AnimatorSet();
         animationSet.addListener(new Animator.AnimatorListener() {
